@@ -1,6 +1,6 @@
 from flask import Flask, request, send_file, jsonify
 from flask_cors import CORS
-from gradio_client import Client
+from gradio_client import Client, handle_file
 import tempfile
 import os
 from werkzeug.utils import secure_filename
@@ -48,8 +48,8 @@ def virtual_tryon():
         # Call Gradio API
         # The IDM-VTON Space expects these parameters
         result = client.predict(
-            dict={"background": person_path, "layers": [], "composite": None},
-            garm_img=clothing_path,
+            dict={"background": handle_file(person_path), "layers": [], "composite": None},
+            garm_img=handle_file(clothing_path),
             garment_des="A beautiful garment",  # Description of the garment
             is_checked=True,  # Use auto-masking
             is_checked_crop=False,  # Don't use auto-crop
@@ -96,8 +96,5 @@ if __name__ == '__main__':
     print("🎯 Endpoint: POST /api/virtual-tryon")
     print("🤖 Model: IDM-VTON (via Gradio Client)")
     print("="*50 + "\n")
-
+    
     app.run(host='0.0.0.0', port=3000, debug=True)
-
-# Vercel expects an 'app' object for Python deployments
-# This ensures the Flask app is available for Vercel
