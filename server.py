@@ -1,7 +1,6 @@
 from flask import Flask, request, send_file, jsonify
 from flask_cors import CORS
 from gradio_client import Client
-from gradio_client.utils import handle_file
 import tempfile
 import os
 from werkzeug.utils import secure_filename
@@ -49,8 +48,8 @@ def virtual_tryon():
         # Call Gradio API
         # The IDM-VTON Space expects these parameters
         result = client.predict(
-            dict={"background": handle_file(person_path), "layers": [], "composite": None},
-            garm_img=handle_file(clothing_path),
+            dict={"background": person_path, "layers": [], "composite": None},
+            garm_img=clothing_path,
             garment_des="A beautiful garment",  # Description of the garment
             is_checked=True,  # Use auto-masking
             is_checked_crop=False,  # Don't use auto-crop
