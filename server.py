@@ -1,6 +1,7 @@
 from flask import Flask, request, send_file, jsonify
 from flask_cors import CORS
-from gradio_client import Client, handle_file
+from gradio_client import Client
+from gradio_client.utils import handle_file
 import tempfile
 import os
 from werkzeug.utils import secure_filename
