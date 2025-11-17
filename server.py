@@ -48,13 +48,13 @@ def virtual_tryon():
         # Call Gradio API
         # The IDM-VTON Space expects these parameters
         result = client.predict(
-            dict={"background": handle_file(person_path), "layers": [], "composite": None},
-            garm_img=handle_file(clothing_path),
-            garment_des="A beautiful garment",  # Description of the garment
-            is_checked=True,  # Use auto-masking
-            is_checked_crop=False,  # Don't use auto-crop
-            denoise_steps=30,  # Number of denoising steps
-            seed=42,  # Random seed for reproducibility
+            person_path,  # Human image
+            clothing_path,  # Garment image
+            "A beautiful garment",  # Garment description
+            True,  # Use auto-masking
+            False,  # Don't use auto-crop
+            30,  # Number of denoising steps
+            42,  # Random seed for reproducibility
             api_name="/tryon"
         )
         
